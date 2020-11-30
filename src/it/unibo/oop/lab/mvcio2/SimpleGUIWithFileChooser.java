@@ -1,5 +1,10 @@
 package it.unibo.oop.lab.mvcio2;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
+import javax.swing.JFrame;
+
 /**
  * A very simple program using a graphical interface.
  * 
@@ -31,5 +36,18 @@ public final class SimpleGUIWithFileChooser {
      * update the UI: in this example the UI knows when should be updated, so
      * try to keep things separated.
      */
+    private final JFrame frame = new JFrame();
+    
+    /**
+     * builds a {@link SimplGUIWithFileChooser}}
+     */
+    public SimpleGUIWithFileChooser(){
+        final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+        final int sw = (int) screen.getWidth();
+        final int sh = (int) screen.getHeight();
+        frame.setSize(sw / 2, sh / 2);
+      
+        frame.setLocationByPlatform(true);
+    }
 
 }
