@@ -5,9 +5,11 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.Random;
+import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -39,6 +41,8 @@ public class BadIOGUI {
         canvas.setLayout(new BorderLayout());
         final JButton write = new JButton("Write on file");
         canvas.add(write, BorderLayout.CENTER);
+        final JButton read = new JButton("read on file");
+        canvas.add(read, BorderLayout.NORTH);
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         /*
@@ -60,6 +64,25 @@ public class BadIOGUI {
                     JOptionPane.showMessageDialog(frame, e1, "Error", JOptionPane.ERROR_MESSAGE);
                     e1.printStackTrace();
                 }
+            }
+        });
+        
+        read.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+              final File file = new File(PATH);
+              Scanner scn = null;
+            try {
+                scn = new Scanner(file);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+              while(scn.hasNextLine()) {
+                String linea = scn.nextLine();
+                System.out.println(linea);
+              }
+              System.out.println();
             }
         });
     }
