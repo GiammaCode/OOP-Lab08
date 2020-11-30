@@ -12,7 +12,9 @@ import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  * This class is a simple application that writes a random number on a file.
@@ -24,7 +26,7 @@ import javax.swing.JPanel;
 public class MiniGUI {
 
     private static final String TITLE = "A very simple GUI application";
-    private static final int PROPORTION = 5;
+    private static final int PROPORTION = 7;
     private final Random rng = new Random();
     private final JFrame frame = new JFrame(TITLE);
 
@@ -35,15 +37,23 @@ public class MiniGUI {
         final JPanel canvas = new JPanel();
         canvas.setLayout(new BorderLayout());
         final JButton write = new JButton("Print a random number on standard output");
-        canvas.add(write, BorderLayout.CENTER);
+        canvas.add(write, BorderLayout.SOUTH);
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        final JTextField ts = new JTextField("number", 15);
+        ts.setPreferredSize(new Dimension(320,200));
+        canvas.add(new JLabel("random Number: "), BorderLayout.NORTH);
+        canvas.add(ts, BorderLayout.CENTER);
+
+   
+        
         /*
          * Handlers
          */
         write.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
+                ts.setText("" + rng.nextInt());
                 System.out.println(rng.nextInt());
             }
         });
