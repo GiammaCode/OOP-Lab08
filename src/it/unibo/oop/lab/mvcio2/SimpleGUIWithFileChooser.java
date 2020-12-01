@@ -1,11 +1,19 @@
 package it.unibo.oop.lab.mvcio2;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
@@ -52,26 +60,65 @@ public final class SimpleGUIWithFileChooser {
         final JPanel panel1 = new JPanel(new BorderLayout());
         final JTextArea text = new JTextArea();
         final JButton save = new JButton("save");
-        final JButton broswe = new JButton("Broswe...");
+        final JButton browse = new JButton("Broswe...");
         final JTextArea pathText = new JTextArea(controller.getPath());
         
         frame.setContentPane(mainPanel);
+        panel1.setBorder(BorderFactory.createLineBorder(Color.black));
         mainPanel.add(save, BorderLayout.SOUTH );
         mainPanel.add(text, BorderLayout.CENTER);
         mainPanel.add(panel1, BorderLayout.NORTH);
-        panel1.add(broswe, BorderLayout.EAST);
+        panel1.add(browse, BorderLayout.EAST);
         panel1.add(pathText);
+      
+      //events
+        save.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+               try {
+                controller.save(text.getText());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            }       
+        });
+        
+        browse.addActionListener(new ActionListener() {
+          //preso da soluzioni 
+            @Override
+            public void actionPerformed(ActionEvent arg0) {
+                final JFileChooser fc = new JFileChooser("Choose where to save");
+                fc.setSelectedFile(controller.getCurrentFile());
+                final int result = fc.showSaveDialog(frame);
+                switch (result) {
+                case JFileChooser.APPROVE_OPTION:
+                    final File newDest = fc.getSelectedFile();
+                    controller.setCurrentFile(newDest);
+                    pathText.setText(newDest.getPath());
+                    break;
+                case JFileChooser.CANCEL_OPTION:
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(frame, result, "Meh!", JOptionPane.ERROR_MESSAGE);
+                }
+ 
+            }
+            
+        });
+        
         
       //frame size 
-        final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        final int sw = (int) screen.getWidth();
-        final int sh = (int) screen.getHeight();
-        frame.setSize(sw / 2, sh / 2);
-        frame.setLocationByPlatform(true);
+       final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+       final int sw = (int) screen.getWidth();
+       final int sh = (int) screen.getHeight();
+       frame.setSize(sw / 2, sh / 2);
+       frame.setLocationByPlatform(true);
         
        frame.setVisible(true);
     }
     
+   
     public static void main(final String[] args) {
        new SimpleGUIWithFileChooser(new Controller());
     }
