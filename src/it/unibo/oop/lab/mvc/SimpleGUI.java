@@ -97,11 +97,17 @@ public final class SimpleGUI {
         frame.setLocationByPlatform(true);
     }
     
+    /**
+     * 
+     */
     public void display() {
         frame.setVisible(true);
     }
     
 
+    /**
+     * 
+     */
     public static void main(final String[] args) {
         new SimpleGUI(new ControllerImpl()).display();
     }
