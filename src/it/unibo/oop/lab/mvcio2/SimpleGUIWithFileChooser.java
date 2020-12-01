@@ -64,6 +64,7 @@ public final class SimpleGUIWithFileChooser {
         final JTextArea pathText = new JTextArea(controller.getPath());
         
         frame.setContentPane(mainPanel);
+        pathText.setEditable(false);
         panel1.setBorder(BorderFactory.createLineBorder(Color.black));
         mainPanel.add(save, BorderLayout.SOUTH );
         mainPanel.add(text, BorderLayout.CENTER);

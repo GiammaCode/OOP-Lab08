@@ -27,12 +27,12 @@ public class Controller {
      *      file is the new destination file 
      */
     public void setCurrentFile(File nwFile) {
-       if(nwFile.exists()) {
-           file = nwFile;
-       }
-       else {
-               throw new IllegalArgumentException("error: file not existing");
-       }
+        final File parent = nwFile.getParentFile();
+        if (parent.exists()) {
+             file = nwFile;
+        } else {
+            throw new IllegalArgumentException("Cannot save in a non-existing folder.");
+        }
     }
     
     /**
