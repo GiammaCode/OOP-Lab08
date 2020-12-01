@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import javax.swing.JButton;
@@ -52,16 +54,16 @@ public final class SimpleGUI {
         final int sh = (int) screen.getHeight();
         frame.setSize(sw / 2, sh / 2);
         frame.setLocationByPlatform(true);
+        
+        frame.setVisible(true);
     }
     
     public void display() {
         frame.setVisible(true);
     }
     
-    public void main(String args[]) {
-        final Controller contrlr = new Controller();
-        final SimpleGUI simpleGui = new SimpleGUI(contrlr);
-        simpleGui.display();
-    }
+    public static void main(String args[]) throws IOException {
+        new SimpleGUI(new Controller()).display();
+     }
 
 }

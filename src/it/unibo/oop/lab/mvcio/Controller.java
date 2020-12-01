@@ -1,6 +1,7 @@
 package it.unibo.oop.lab.mvcio;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -20,14 +21,13 @@ public class Controller {
                                         SEPARATOR + NAME;
     private File file = new File(PATH);
    
-    
     /**
      * a method that set File as current file
      * @param 
      *      file is the new destination file 
      */
     public void setCurrentFile(File nwFile) {
-       if(nwFile.getPath() != null) {
+       if(nwFile.exists()) {
            file = nwFile;
        }
        else {
@@ -59,9 +59,9 @@ public class Controller {
      *      saves its content on the current file
      */
     public void save (String input) throws IOException {
-        Path path = Paths.get("output.txt");
-        Files.writeString(path, input, StandardCharsets.UTF_8);
-       
+          FileWriter writer = new FileWriter(file);
+          writer.write(input);
+          writer.close();
     }
     
     
